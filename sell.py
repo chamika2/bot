@@ -12,7 +12,7 @@ from aiogram.fsm.state import State, StatesGroup
 API_TOKEN = '8628254740:AAG9nvBN2wVCW7tM6YXzBOrb7eMUnWIsXfI'
 ADMIN_ID = 6221106415  # ඔයාගේ Telegram User ID එක
 ADMIN_USERNAME = "prasa_z" # ඔයාගේ Username එක (@ නැතුව)
-CHANNEL_ID = --1003131855993 # ඔයාගේ Channel එකේ ID එක (-100 සමඟ)
+CHANNEL_ID = -1003131855993 # ඔයාගේ Channel එකේ ID එක (-100 සමඟ)
 CHANNEL_LINK = "https://t.me/sni_hunter"
 
 # ================= 🗄️ DATABASE SETUP =================
