@@ -116,7 +116,7 @@ async def check_sub_callback(callback: types.CallbackQuery):
 async def support_info(message: types.Message):
     # මෙතන @YourUsername වෙනුවට ඔයාගේ ඇත්තම username එක දෙන්න
     kb = InlineKeyboardBuilder()
-    kb.row(InlineKeyboardButton(text="👨‍💻 Contact Admin", url=f"https://t.me/{@prasa_z}"))
+    kb.row(InlineKeyboardButton(text="👨‍💻 Contact Admin", url=f"https://t.me/@prasa_z"))
     
     await message.answer(
         "ඔබට කිසියම් ගැටලුවක් පවතී නම් පහත button එක හරහා අපව සම්බන්ධ කරගන්න. 👇",
@@ -265,6 +265,7 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
 
 
 
