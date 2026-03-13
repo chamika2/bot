@@ -112,6 +112,17 @@ async def check_sub_callback(callback: types.CallbackQuery):
     else:
         await callback.answer("❌ ඔබ තවමත් Channel එකට Join වී නැත!", show_alert=True)
 
+@dp.message(F.text == "🆘 Support")
+async def support_info(message: types.Message):
+    # මෙතන @YourUsername වෙනුවට ඔයාගේ ඇත්තම username එක දෙන්න
+    kb = InlineKeyboardBuilder()
+    kb.row(InlineKeyboardButton(text="👨‍💻 Contact Admin", url=f"https://t.me/{@prasa_z}"))
+    
+    await message.answer(
+        "ඔබට කිසියම් ගැටලුවක් පවතී නම් පහත button එක හරහා අපව සම්බන්ධ කරගන්න. 👇",
+        reply_markup=kb.as_markup()
+    )
+
 @dp.message(F.text == "💎 Available Files")
 async def show_files(message: types.Message):
     if not await is_subscribed(message.from_user.id): return
@@ -157,6 +168,32 @@ async def get_free(message: types.Message):
 async def admin_p(message: types.Message):
     if message.from_user.id == ADMIN_ID:
         await message.answer("⚙️ Admin Panel", reply_markup=admin_menu())
+
+@dp.message(F.text == "🗑️ Remove File")
+async def remove_file_start(message: types.Message, state: FSMContext):
+    if message.from_user.id == ADMIN_ID:
+        # දැනට තියෙන Files සහ ඒවගේ ID ටික මතක් කරන්න
+        cursor.execute("SELECT id, caption FROM files")
+        all_files = cursor.fetchall()
+        
+        if not all_files:
+            await message.answer("❌ මකා දැමීමට කිසිදු File එකක් නැත.")
+            return
+
+        file_list = "\n".join([f"🆔 ID: {f[0]} - {f[1][:20]}..." for f in all_files])
+        await message.answer(f"දැනට පවතින Files:\n\n{file_list}\n\n🗑️ මකා දැමිය යුතු **File ID** එක පමණක් එවන්න.")
+        await state.set_state(AdminStates.removing_file)
+
+@dp.message(AdminStates.removing_file)
+async def remove_file_process(message: types.Message, state: FSMContext):
+    file_id = message.text
+    if file_id.isdigit():
+        cursor.execute("DELETE FROM files WHERE id=?", (file_id,))
+        conn.commit()
+        await message.answer(f"✅ ID {file_id} සාර්ථකව මකා දැමුවා!", reply_markup=admin_menu())
+    else:
+        await message.answer("⚠️ කරුණාකර නිවැරදි අංකයක් (ID) පමණක් එවන්න.")
+    await state.clear()
 
 @dp.message(F.text == "➕ Add New File")
 async def add_start(message: types.Message, state: FSMContext):
@@ -228,6 +265,7 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
 
 
 
