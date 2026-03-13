@@ -65,10 +65,18 @@ def force_sub_kb():
 async def is_subscribed(user_id):
     try:
         member = await bot.get_chat_member(chat_id=CHANNEL_ID, user_id=user_id)
-        # Status 'left' හෝ 'kicked' නොවේ නම් ඔහු member කෙනෙක්
-        return member.status in ['member', 'administrator', 'creator']
+        # මෙතනදී අපි බලනවා member ගේ status එක මොකක්ද කියලා
+        logging.info(f"User {user_id} status: {member.status}")
+        
+        if member.status in ['member', 'administrator', 'creator']:
+            return True
+        return False
     except Exception as e:
-        print(f"Sub Check Error: {e}")
+        # මෙන්න මෙතන තමයි වැදගත්! මොකක් හරි error එකක් ආවොත් ඒක print වෙනවා.
+        print(f"❌ Sub Check Error: {e}")
+        # පරීක්ෂා කිරීමක් ලෙස, Admin ට පමණක් සැමවිටම True ලබා දෙමු
+        if user_id == ADMIN_ID:
+            return True
         return False
 
 # ================= 👤 USER HANDLERS =================
@@ -220,5 +228,6 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
 
 
