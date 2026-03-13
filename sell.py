@@ -32,7 +32,7 @@ conn.commit()
 # ================= 🤖 BOT SETUP =================
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher()
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.ERROR)
 
 class AdminStates(StatesGroup):
     adding_photo = State()
