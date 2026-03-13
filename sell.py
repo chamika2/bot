@@ -9,7 +9,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 
 # ================= ⚙️ CONFIGURATIONS =================
-API_TOKEN = '8370578722:AAHm1POdG3teNLxYmmTQPdRzEiyrg_49HxU'
+API_TOKEN = '8628254740:AAG9nvBN2wVCW7tM6YXzBOrb7eMUnWIsXfI'
 ADMIN_ID = 6221106415  # ඔයාගේ Telegram User ID එක
 ADMIN_USERNAME = "prasa_z" # ඔයාගේ Username එක (@ නැතුව)
 CHANNEL_ID = --1003131855993 # ඔයාගේ Channel එකේ ID එක (-100 සමඟ)
@@ -228,6 +228,7 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
 
 
 
